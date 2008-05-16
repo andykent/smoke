@@ -59,7 +59,7 @@ Screw.Unit(function() {
 			});
 		});
 		
-		describe("an existing object", function() {
+		describe("added ontop of an existing object", function() {
 			before(function() {
 				obj = { say: "hello", shout: function() { return this.say.toUpperCase(); } }
 				mockObj = mock(obj);
@@ -83,11 +83,21 @@ Screw.Unit(function() {
 				expect(mockObj[2]).to(equal,2);
 				expect(mockObj.length).to(equal,4);
 			});
+			
+			it("should place expectations on existing methods non-destructively", function() {
+				myMock = mock({ say: "hello", shout: function() { return this.say.toUpperCase(); } });
+				myMock.should_receive('shout').exactly('once');
+				expect(myMock.shout()).to(equal,'HELLO');
+			});
 		});
 		
 		describe("an objects prototype", function() {
 			it("should allow mocks to be carried through to individual objects", function() {
-				
+				Aobj = function() {};
+				Aobj.prototype = { aFunction: function() {return 'prototype function'} };
+				mock(Aobj.prototype).should_receive('aFunction').exactly('twice');
+				(new Aobj()).aFunction();
+				(new Aobj()).aFunction();
 			});
 		});
 	});
