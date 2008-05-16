@@ -30,11 +30,11 @@ Create your stubs...
 
 Create your mocks...
 
-	var myMock = new Smoke.Mock('test');
+	var myMock = Smoke.Mock();
 
 Create your expectations...
 
-	myMock.should_receive('foo').exactly(3, 'times').and_return('bar');
+	myMock.should_receive('foo').with('bar').exactly(3, 'times').and_return('baz');
 
 Check you expectations...
 
