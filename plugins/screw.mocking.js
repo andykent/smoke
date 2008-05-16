@@ -1,7 +1,7 @@
 // This is alightweight bridge between smoke and Screw.Unit
 // it shadows mocking and stubbing onto the matchers to make them available within tests
 Screw.Matchers.mock = function(m) {
-	return new Smoke.Mock(m);
+	return Smoke.Mock(m);
 };
 
 Screw.Matchers.stub = function(obj,attr) {

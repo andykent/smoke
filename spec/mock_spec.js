@@ -61,25 +61,34 @@ Screw.Unit(function() {
 		
 		describe("an existing object", function() {
 			before(function() {
-				obj = { name: "Andy", shout: function() { return this.name.upperCase(); } }
+				obj = { say: "hello", shout: function() { return this.say.toUpperCase(); } }
 				mockObj = mock(obj);
 			});
 			
 			it("should leave original properties intact", function() {
-				expect(mockObj.name).to(equal,'Andy');
+				expect(mockObj.say).to(equal,'hello');
 			});
 			
 			it("should leave original functions intact", function() {
-				expect(mockObj.shout).to(equal,'ANDY');
+				expect(mockObj.shout()).to(equal,'HELLO');
 			});
 			
-			it("should add methods to allow stubbing and mocking on the objects properties");
+			it("should add methods to allow stubbing and mocking on the objects properties", function() {
+				expect(mockObj.should_receive).to_not(equal,undefined);
+				expect(mockObj.stub).to_not(equal,undefined);
+			});
 			
-			it("shouldn't break iterators")
+			it("shouldn't break Arrays", function() {
+				mockObj = mock([0,1,2,3]);
+				expect(mockObj[2]).to(equal,2);
+				expect(mockObj.length).to(equal,4);
+			});
 		});
 		
 		describe("an objects prototype", function() {
-			it("should allow mocks to be carried through to individual objects");
+			it("should allow mocks to be carried through to individual objects", function() {
+				
+			});
 		});
 	});
 });
