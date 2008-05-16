@@ -49,8 +49,8 @@ Screw.Unit(function() {
 				mockObj = mock()
 				mockObj.should_receive('foo').with_arguments('bar').and_return('foobar'); 
 				mockObj.should_receive('foo').with_arguments('mouse').and_return('cheese');
-				expect(mockObj.foo('bar')).to(equal, 'foobar');
 				expect(mockObj.foo('mouse')).to(equal, 'cheese');
+				expect(mockObj.foo('bar')).to(equal, 'foobar');
 			});
 			it("should allow mocking a method signature with arguments and setting expectations", function() {
 				mockObj = mock()
