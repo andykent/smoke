@@ -6,6 +6,14 @@ Getting Started (With Screw.Unit)
 ---------------------------------
 See `spec/suite.html` and the test file `screw_integration_spec.js` for lots of real world usage examples.
 
+but you will need to include the Smoke files and you can get straight to work using the mock() and spec() methods...
+
+	foo = {bar: function(attribute){return 'hello'}, baz:'goodbye'};
+	stub(foo, 'baz').and_return('hi!');
+	myMock = mock('test');
+	myMock.should_receive('foo').at_least('once').and_return('hello');
+	expect(foo.baz).to(equal, 'hi!');
+
 Getting Started (Free Standing)
 -------------------------------
 Include the library files in your document...
@@ -26,7 +34,7 @@ Create your mocks...
 
 Create your expectations...
 
-	myMock.should_receive('foo').exactly('once').and_return('bar');
+	myMock.should_receive('foo').exactly(3, 'times').and_return('bar');
 
 Check you expectations...
 
