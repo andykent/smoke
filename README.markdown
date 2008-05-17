@@ -9,7 +9,8 @@ See `spec/suite.html` and the test file `screw_integration_spec.js` for lots of 
 but you will need to include the Smoke files and you can get straight to work using the mock() and spec() methods...
 
 	foo = {bar: function(attribute){return 'hello'}, baz:'goodbye'};
-	stub(foo, 'baz').and_return('hi!');
+	stub(foo, 'bar').and_return('hi!');
+	stub(foo, 'baz').and_set_to('welcome');
 	myMock = mock('test');
 	myMock.should_receive('foo').at_least('once').and_return('hello');
 	expect(foo.baz).to(equal, 'hi!');
@@ -25,8 +26,8 @@ Include the library files in your document...
 Create your stubs...
 
 	foo = {bar: function(attribute){return 'hello'}, baz:'goodbye'};
-	new Smoke.Stub(foo,'baz').and_return('baz');
-	new Smoke.Stub(foo,'bar').and_return_as_function('blah');
+	new Smoke.Stub(foo,'baz').and_set_to('boo');
+	new Smoke.Stub(foo,'bar').and_return('blah');
 
 Create your mocks...
 

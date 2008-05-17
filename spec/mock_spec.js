@@ -2,7 +2,7 @@ Screw.Unit(function() {
 	describe("mocking", function() {	
 		describe("basics", function() {					
 			it("allows stubbing directly on mock objects", function() {
-				mockObj = mock().stub('bar').and_return_as_function('baz');
+				mockObj = mock().stub('bar').and_return('baz');
 				expect(mockObj.bar()).to(equal, 'baz');
 			});
 		

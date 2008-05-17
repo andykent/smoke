@@ -5,7 +5,7 @@ Screw.Unit(function() {
 		});
 		
 		it("should return the stubbed value of a property", function() {
-			stub(foo,'baz').and_return('baz');
+			stub(foo,'baz').and_set_to('baz');
 			expect(foo.baz).to(equal, 'baz');
 		});
 		
