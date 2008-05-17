@@ -10,7 +10,7 @@ Screw.Unit(function() {
 		});
 		
 		it("should return the stubbed value of a function", function() {
-			stub(foo,'bar()').and_return('bar');
+			stub(foo,'bar').and_return('bar');
 			expect(foo.bar()).to(equal, 'bar');
 		});
 	});
