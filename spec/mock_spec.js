@@ -34,7 +34,7 @@ Screw.Unit(function() {
 		});
 	
 		describe("with argument conditions", function() {					
-			it("should only mock the exact method signature when with_arguments is users", function() {
+			it("should only mock the exact method signature when with_arguments is used", function() {
 				mockObj = mock()
 				baz = {a:'a dummy obj'}
 				mockObj.should_receive('foo').with_arguments('bar',baz).and_return('foobar'); 
