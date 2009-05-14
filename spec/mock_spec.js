@@ -12,6 +12,12 @@ Screw.Unit(function() {
 				m.bar();
 				m.bar();
 			});
+
+			it("should not check arguments when with_arguments is not used", function() {
+				var m = mock()
+				m.should_receive('bar').exactly('once');
+				m.bar(1);
+			});
 		
 			it("should check a minimum call count", function() {
 				var m = mock()
@@ -56,6 +62,12 @@ Screw.Unit(function() {
 				mockObj = mock()
 				mockObj.should_receive('foo').with_arguments('bar').exactly('once');
 				mockObj.foo('bar')
+			});
+			it("should only mock the exact method signature when with_arguments is used with no arguments", function() {
+        mockObj = mock();
+        mockObj.should_receive('foo').with_arguments().exactly('once');
+        mockObj.foo('should ignore this call');
+        mockObj.foo();
 			});
 		});
 		
