@@ -13,6 +13,32 @@ Screw.Unit(function() {
 				m.bar();
 			});
 
+      it("should fail when an expectation is called too many times", function() {
+        var m = mock();
+        m.should_receive('bar').exactly('once');  
+        m.bar();
+        m.bar();
+        try {
+          Smoke.checkExpectations();
+          throw("exception");
+        } catch(e) {
+          Smoke.reset();
+          expect(e).to(equal, 'expected bar() to be called exactly 1 times but it got called 2 times');
+        }
+      });
+
+      it("should fail when an expectation is set and not called", function() {
+        var m = mock();
+        m.should_receive('bar').exactly('once');
+        try {
+          Smoke.checkExpectations();
+          throw("exception");
+        } catch(e) {
+          Smoke.reset();
+          expect(e).to(equal, 'expected bar() to be called exactly 1 times but it got called 0 times');
+        }
+      });
+      
 			it("should not check arguments when with_arguments is not used", function() {
 				var m = mock()
 				m.should_receive('bar').exactly('once');
