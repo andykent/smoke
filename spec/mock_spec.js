@@ -91,6 +91,29 @@ Screw.Unit(function() {
 			});
 		});
 		
+		describe("when array has been monkey-patched by js library not to be named here (grrr)", function() {
+      before(function() {
+        Array.prototype.remove = function() {
+          alert('I like monkeys!');
+        }
+      });
+      it("should not throw a type error when checking expectations", function() {
+				var m = mock()
+				m.should_receive('bar').at_least('once');
+				m.bar();
+				try {
+				  Smoke.checkExpectations();
+				} catch(e) {
+  				/* Make sure we clean up to not break the rest of the tests */
+  				delete(Array.prototype.remove);
+				  throw e;
+				}
+		  });
+		  after(function() {
+	      delete(Array.prototype.remove);
+		  });		  
+		});
+		
 		describe("an objects prototype", function() {
 			it("should allow mocks to be carried through to individual objects", function() {
 				Aobj = function() {};
