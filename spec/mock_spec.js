@@ -129,6 +129,50 @@ Screw.Unit(function() {
 			});
 		});
 		
+		describe("anonymous functions", function() {
+			before(function() {
+				foo = function() { return 'bar' };
+				mockObj = mock_function(foo);
+			});
+      
+      it("should leave the original intact", function() {
+        expect(foo()).to(equal,'bar');
+      });
+      
+      it("should still execute the mock like the original", function() {
+        expect(mockObj()).to(equal,'bar');
+      });
+      
+      it("should still execute the mock like the original with arguments", function() {
+        var a = function(x,y,z) { return x+y+z };
+        aMock = mock_function(a)
+        expect(aMock('a','b','c')).to(equal,'abc');
+      });
+      
+      it("should allow expectations to be set as usual", function() {
+        mockObj.should_receive('baz').exactly('once').and_return(1);
+        mockObj.baz()
+      });
+
+      it("should allow expectations to be set on invocations of itself", function() {
+        mockObj.should_be_invoked();
+        mockObj();
+      });
+      
+      it("should allow expectation rules to be set", function() {
+        mockObj.should_be_invoked().exactly('twice').with_arguments('a');
+        mockObj('a');
+        mockObj('a');
+      });
+      
+      it("should not call the original if a return value is specified", function() {
+        var func = function() { throw("I should not be called") };
+        var mockFunc = mock_function(func);
+        mockFunc.should_be_invoked().and_return('hello');
+        expect(mockFunc()).to(equal, 'hello');
+      });
+		});
+		
 		describe("when array has been monkey-patched by js library not to be named here (grrr)", function() {
       before(function() {
         Array.prototype.remove = function() {

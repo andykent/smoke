@@ -5,6 +5,10 @@ Screw.Matchers.mock = function(m) {
   return Smoke.Mock(m);
 };
 
+Screw.Matchers.mock_function = function(func,name) {
+  return Smoke.MockFunction(func,name);
+};
+
 Screw.Matchers.stub = function(obj, attr) {
   return new Smoke.Stub(obj,attr);
 };
