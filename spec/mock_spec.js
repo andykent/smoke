@@ -165,11 +165,24 @@ Screw.Unit(function() {
         mockObj('a');
       });
       
-      it("should not call the original if a return value is specified", function() {
-        var func = function() { throw("I should not be called") };
+      it("should call the original even if a return value is specified", function() {
+        var a = false
+        var func = function() { a = true };
         var mockFunc = mock_function(func);
         mockFunc.should_be_invoked().and_return('hello');
-        expect(mockFunc()).to(equal, 'hello');
+        expect(mockFunc()).to(equal, 'hello');        
+        expect(a).to(equal, true);        
+      });
+      
+      it("allows passing in a name for the function as a second argument to make error messages clearer", function() {
+        mock_function(foo, 'foo').should_be_invoked().exactly('once');
+        try {
+          Smoke.checkExpectations();
+          throw("exception");
+        } catch(e) {
+          Smoke.reset();
+          expect(e).to(equal, 'expected foo() to be called exactly 1 times but it got called 0 times');
+        }
       });
 		});
 		
