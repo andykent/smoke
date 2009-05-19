@@ -18,9 +18,10 @@ but you will need to include the Smoke files and you can get straight to work us
 
 Additionally Smoke now has a macro for mocking anonymous functions this is great for mocking and stubbing closures...
 
-	f = mock_function(function () { return 'Hi!' });
-	f.should_be_invoked().exactly('once');
-	expect(f()).to(equal, 'hi!');
+	callback = mock_function();
+	callback.should_be_invoked().exactly('once');
+	$.bind('click', callback);
+	$.trigger('click');
 
 Getting Started (Free Standing)
 -------------------------------
