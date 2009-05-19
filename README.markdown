@@ -1,6 +1,6 @@
 Smoke
 =====
-Smoke is a JavaScript mocking and stubbing framework. It has a familiar RSpec style interface and whilst it is perfectly capable of being used as a free-standing tool it is currently most useful when used in conjunction with the screw-unit testing framework.
+Smoke is a JavaScript mocking and stubbing framework. It has a familiar RSpec style interface and whilst it is perfectly capable of being used as a free-standing tool it is totally usable as a free standing tool but comes complete with a plugin for the screw-unit testing framework.
 
 Getting Started (With Screw.Unit)
 ---------------------------------
@@ -14,6 +14,12 @@ but you will need to include the Smoke files and you can get straight to work us
 	myMock = mock('test');
 	myMock.should_receive('foo').at_least('once').and_return('hello');
 	expect(foo.baz).to(equal, 'hi!');
+
+Additionally Smoke now has a macro for mocking anonymous functions this is great for mocking and stubbing closures...
+
+  f = mock_function(function () { return 'Hi!' });
+  f.should_be_invoked().exactly('once');
+  expect(f()).to(equal, 'hi!');
 
 Getting Started (Free Standing)
 -------------------------------
@@ -32,6 +38,7 @@ Create your stubs...
 Create your mocks...
 
 	var myMock = Smoke.Mock();
+	var myMockFunction = Smoke.MockFunction();
 
 Create your expectations...
 
@@ -48,7 +55,7 @@ Mocks are the main part of the Smoke framework. But Smoke.Mock() has a bit of a 
 1. *without any arguments* it will return a fresh Mock with no more than default Object methods. You will need to mock all your interactions and check all your expectations.
 2. *with an argument* it will return a 'Mocked' version of the object that was passed in. This is very useful if you just want to mock a single method on your object whilst leaving the rest intact. It's especially helpful for just carrying out expectations on existing objects without any mocking at all.
 
-Smoke expectations are non-destructive meaning that if you add an expectation but don't specify a return value then the previous method will still be invoked (if one exists) and it's result will be returned.
+Smoke expectations are non-destructive meaning that if you add an expectation then the previous method will still be invoked (if one exists) and it's result will be returned (unless you specify otherwise). If you really don't want the original to be called then you should use .stub() to stub it out.
 
 Known Issues
 ------------

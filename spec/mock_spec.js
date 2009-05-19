@@ -57,7 +57,13 @@ Screw.Unit(function() {
 				m.bar();
 				m.bar();
 			});
-		
+		  
+		  it("should allow stubbing on mocks", function() {
+				var m = mock({foo: function() { throw('I should not have been called!')}});
+				m.should_receive('foo').stub.and_return('hello');
+				m.foo();
+			});
+		  
 			it("should allow return values directly from mocks",function() {
 				var m = mock()
 				m.should_receive('bar').exactly('once').and_return('hello');
