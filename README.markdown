@@ -1,6 +1,7 @@
 Smoke
 =====
-Smoke is a JavaScript mocking and stubbing framework. It has a familiar RSpec style interface and whilst it is perfectly capable of being used as a free-standing tool it is totally usable as a free standing tool but comes complete with a plugin for the screw-unit testing framework.
+Smoke is a JavaScript mocking and stubbing framework. It has a familiar RSpec style interface and whilst it is perfectly capable of being used as a free-standing tool it comes complete with a plugin for the screw-unit testing framework.
+Below are some getting started guides to get you on your way. See the included specs for further help.
 
 Getting Started (With Screw.Unit)
 ---------------------------------
@@ -17,9 +18,9 @@ but you will need to include the Smoke files and you can get straight to work us
 
 Additionally Smoke now has a macro for mocking anonymous functions this is great for mocking and stubbing closures...
 
-  f = mock_function(function () { return 'Hi!' });
-  f.should_be_invoked().exactly('once');
-  expect(f()).to(equal, 'hi!');
+	f = mock_function(function () { return 'Hi!' });
+	f.should_be_invoked().exactly('once');
+	expect(f()).to(equal, 'hi!');
 
 Getting Started (Free Standing)
 -------------------------------
