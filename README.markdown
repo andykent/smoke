@@ -57,7 +57,7 @@ Mocks are the main part of the Smoke framework. But Smoke.Mock() has a bit of a 
 1. *without any arguments* it will return a fresh Mock with no more than default Object methods. You will need to mock all your interactions and check all your expectations.
 2. *with an argument* it will return a 'Mocked' version of the object that was passed in. This is very useful if you just want to mock a single method on your object whilst leaving the rest intact. It's especially helpful for just carrying out expectations on existing objects without any mocking at all.
 
-Smoke expectations are non-destructive meaning that if you add an expectation then the previous method will still be invoked (if one exists) and it's result will be returned (unless you specify otherwise). If you really don't want the original to be called then you should use .stub() to stub it out.
+Smoke expectations are now destructive meaning that if you add an expectation then the previous method will not be invoked (if one exists) and undefined will be returned (unless you specify otherwise using and_return()).
 
 Known Issues
 ------------
