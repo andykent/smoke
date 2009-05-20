@@ -58,12 +58,6 @@ Screw.Unit(function() {
 				m.bar();
 			});
 		  
-		  it("should allow stubbing on mocks", function() {
-				var m = mock({foo: function() { throw('I should not have been called!')}});
-				m.should_receive('foo').stub.and_return('hello');
-				m.foo();
-			});
-		  
 			it("should allow return values directly from mocks",function() {
 				var m = mock()
 				m.should_receive('bar').exactly('once').and_return('hello');
@@ -128,10 +122,10 @@ Screw.Unit(function() {
 				expect(mockObj.length).to(equal,4);
 			});
 			
-			it("should place expectations on existing methods non-destructively", function() {
-				myMock = mock({ say: "hello", shout: function() { return this.say.toUpperCase(); } });
+			it("should place expectations on existing methods destructively", function() {
+				myMock = mock({ say: "hello", shout: function() { throw "FAIL!" } });
 				myMock.should_receive('shout').exactly('once');
-				expect(myMock.shout()).to(equal,'HELLO');
+				myMock.shout()
 			});
 		});
 		
@@ -169,15 +163,6 @@ Screw.Unit(function() {
         mockObj.should_be_invoked().exactly('twice').with_arguments('a');
         mockObj('a');
         mockObj('a');
-      });
-      
-      it("should call the original even if a return value is specified", function() {
-        var a = false
-        var func = function() { a = true };
-        var mockFunc = mock_function(func);
-        mockFunc.should_be_invoked().and_return('hello');
-        expect(mockFunc()).to(equal, 'hello');        
-        expect(a).to(equal, true);        
       });
       
       it("allows passing in a name for the function as a second argument to make error messages clearer", function() {
